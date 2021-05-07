@@ -6,7 +6,7 @@ import useAuthListener from "./hooks/use-auth-listener";
 import './index.css'
 
 import ProtectedRoute from './helpers/protected.route'
-import IsUserLoggedIn from "./helpers/is-user-logged-in";
+// import IsUserLoggedIn from "./helpers/is-user-logged-in";
 
 
 
@@ -15,7 +15,7 @@ const SignUp = lazy(() => import ('./pages/sign-up'))
 const Dashboard = lazy(() => import ('./pages/dashboard'))
 const NotFound = lazy(() => import ('./pages/not-found'))
 const Profile = lazy(() => import('./pages/profile'))
-console.log(<Profile />)
+
 const App = () => {
   const { user } = useAuthListener()
   console.log(user)
@@ -26,17 +26,24 @@ const App = () => {
           <Switch>
             
             {/* if user try to access login page after logged in, they will be redirected to dashboard */}
-            <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN} exact >
+            {/* There were some issue after sign up since history.push before awaiting  */}
+            {/* <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN} exact >
               <Login />
             </IsUserLoggedIn>
 
             <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.SIGN_UP} exact>
               <SignUp />
-            </IsUserLoggedIn>
+            </IsUserLoggedIn> */}
             <ProtectedRoute user={user} path={ROUTES.DASHBOARD} exact >
               <Dashboard />
-            </ProtectedRoute>
-            
+            </ProtectedRoute> 
+   
+            <Route path={ROUTES.SIGN_UP}>
+              <SignUp />
+            </Route>
+            <Route path={ROUTES.LOGIN}>
+              <Login />
+            </Route>
             <Route path={ROUTES.PROFILE} >
               <Profile />
             </Route>

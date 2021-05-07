@@ -1,5 +1,6 @@
 
 
+import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import * as ROUTES from '../constants/routes'
 /* Check if user is logged in and get user access to certain routes, specially when theres no jwt */
@@ -10,8 +11,8 @@ const ProtectedRoute = ({ user, children, ...rest }) => {
       {...rest} 
       render={({ location }) => {
         if (user) {
-          console.log(children)
-          return children
+         
+          return React.cloneElement(children, {user})
         }
 
         if (!user) {

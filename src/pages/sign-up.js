@@ -54,6 +54,7 @@ const SignUp = () => {
       }
 
     } else {
+      setUsername('')
       setError('The username is already taken, please try another')
     }
   }

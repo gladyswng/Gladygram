@@ -7,8 +7,6 @@ import UserProfile from '../components/profile'
 const Profile = () => {
   const { username } = useParams()
   const history = useHistory()
-
-
   const [ user, setUser ] = useState(null)
   // const [ userExists, setUserExists ] = useState(false)
 
@@ -20,7 +18,7 @@ const Profile = () => {
     const checkUserExists = async () => {
       const [user] = await getUserByUsername(username)
   
-      if (user) {
+      if (user?.userId) {
         setUser(user)
         // setUserExists(true)
       } else {

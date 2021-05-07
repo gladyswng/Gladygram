@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Skeleton from "react-loading-skeleton"
+import { UserContext } from "../../context/user"
 import useUser from "../../hooks/use-user"
 import { isUserFollowingProfile, toggleFollow } from "../../services/firebase"
 
 const Header = ({ photosCount, profile,   followersCount, setFollowersCount }) => {
-  const { docId: profileDocId, userId: profileUserId, fullName, following=[], username: profileUsername, followers } = profile
+  const { docId: profileDocId, userId: profileUserId, fullName, following, username: profileUsername, followers } = profile
   // we actually dont want to pass down a large amount of obj like here with followers or following
-  const { user } = useUser()
+  const loggedInUser = useContext(UserContext)
 
+  const { user } = useUser(loggedInUser.uid)  
   const [ isFollowingProfile, setIsFollowingProfile ] = useState(false)
   const activeBtnFollow = user?.username !== profileUsername
 
@@ -20,11 +22,11 @@ const Header = ({ photosCount, profile,   followersCount, setFollowersCount }) =
 
     }
 
-    if (user.username && profileUserId) {
+    if (user?.username && profileUserId) {
       isLoggedInUserFollowingProfile()
     }
 
-  }, [user.username, profileUserId])
+  }, [user?.username, profileUserId])
 
   const handleToggleFollow = async () => {
     setIsFollowingProfile(isFollowingProfile => !isFollowingProfile)
@@ -34,15 +36,23 @@ const Header = ({ photosCount, profile,   followersCount, setFollowersCount }) =
     await toggleFollow(isFollowingProfile, user.userId, user.docId, profileDocId, profileUserId)
   } 
 
+  // console.log('user', profileUsername)
+
 
   return (
     <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
-      <div className="container flex justify-center">
-        {profileUsername && <img 
+      <div className="container flex justify-center items-center">
+        {profileUsername ? (<img 
           className="rounded-full h-40 w-40 flex"
           alt={`${profileUsername} profile`}
           src={`/images/avatars/${profileUsername}.jpg`}
-        />}
+        />) : (
+          <img 
+          className="rounded-full h-40 w-40 flex"
+          alt={`default profile`}
+          src={`/images/avatars/default.jpg`}
+        />
+        )}
       </div>
         <div className="flex items-center justify-center flex-col col-span-2">
           <div className="container flex items-center">

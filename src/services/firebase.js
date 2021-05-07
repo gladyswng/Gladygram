@@ -130,7 +130,7 @@ export const getPhotos = async (userId, following) => {
 // }
 
 export const getUserPhotosByUsername = async (username) => {  
-
+  console.log(username)
   const [{ userId }] = await getUserByUsername(username)
   const result = await firebase 
     .firestore()

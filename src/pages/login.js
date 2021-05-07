@@ -63,7 +63,7 @@ const Login = () => {
               value={password}
             />
 
-            <button disabled={isInvalid} type="submit" className={`bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-50'}`}>Log In</button>
+            <button disabled={isInvalid} type="submit" className={`bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-50'}`}>Login</button>
 
             
           </form>

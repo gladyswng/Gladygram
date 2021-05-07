@@ -7,7 +7,7 @@ import Image from "./Image"
 
 
 const Post = ({ content }) => {
-  console.log(content)
+  
   const { username, imageSrc, caption, docId, likes, userLikedPhoto, comments, dateCreated } = content
 
   const commentInput = useRef(null)

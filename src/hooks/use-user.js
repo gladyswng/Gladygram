@@ -1,27 +1,33 @@
 
 // we need to call firebase to get
 
-import { useContext, useEffect, useState } from "react"
-import { UserContext } from "../context/user"
+import  { useEffect, useState } from "react"
 import { getUserByUserId } from "../services/firebase"
 
-const useUser = () => {
+const useUser = (userId) => {
   const [ activeUser, setActiveUser ] = useState({})
-  const user = useContext(UserContext)
-
+    
 
   useEffect(() => {
+    
+    // here we dont want to call when user doesnt exist
     const getUserObjByUserId = async () => {
       // function to call firebase service to get user data based on user id
-      const [ response ] = await getUserByUserId(user.uid)
-      setActiveUser(response)
+
+      
+      const [ user ] = await getUserByUserId(userId)
+
+      setActiveUser(user || {})
     
     }
-    if(user?.uid) {
+    
+
+    if(userId) {
+   
       getUserObjByUserId()
     } 
-  }, [user])
-  // console.log('activeuser', activeUser)
+  }, [userId])
+
 
   return { user: activeUser}
 }
