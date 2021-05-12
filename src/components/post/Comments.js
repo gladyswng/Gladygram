@@ -1,4 +1,4 @@
-import { formatDistance } from "date-fns/esm"
+import { formatDistance } from "date-fns"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import AddComment from "./AddComment"

@@ -22,7 +22,7 @@ const { FieldValue } = Firebase.firestore
 // here is where i want to call the seed file (only once)
 // seedDatabase(firebase)
 
-console.log(firebase)
+
 
 export { firebase, FieldValue }
 

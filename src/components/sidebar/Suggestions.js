@@ -5,11 +5,11 @@ import SuggestedProfile from "./SuggestedProfile"
 
 const Suggestions = ({ userId, following, loggedInUserDocId }) => {
   const [ profiles, setProfiles ] = useState(null)
-
+  // console.log(profiles)
   useEffect(() => {
     const suggestedProfiles = async () => {
       const response = await getSuggestedProfiles(userId, following)
-
+    
       setProfiles(response)
 
     }
